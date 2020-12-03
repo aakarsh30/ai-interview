@@ -3,10 +3,29 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
+import {Grommet} from 'grommet';
+import {
+  BrowserRouter ,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import Recorder from './component/videorecorder';
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Grommet full>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/" exact >
+            <App />
+          </Route>
+          <Route path="/rec" >
+            <Recorder />
+          </Route>
+        </Switch>
+      </BrowserRouter>
+      
+    </Grommet>
   </React.StrictMode>,
   document.getElementById('root')
 );
