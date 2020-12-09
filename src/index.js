@@ -3,27 +3,30 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {BrowserRouter,Switch,Route} from 'react-router-dom';
+
 import {Grommet} from 'grommet';
-import {
-  BrowserRouter ,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
 import Recorder from './component/videorecorder';
+const themes ={
+  anchor: {
+    hover: {
+      textDecoration: 'none',
+    },
+  },
+  button: {
+    active: {
+      border: {
+        color: 'black',
+      },
+    },
+  },
+};
+
 ReactDOM.render(
   <React.StrictMode>
-    <Grommet full>
-      <BrowserRouter>
-        <Switch>
-          <Route path="/" exact >
+    <Grommet theme={themes} full>
             <App />
-          </Route>
-          <Route path="/rec" >
-            <Recorder />
-          </Route>
-        </Switch>
-      </BrowserRouter>
+      
       
     </Grommet>
   </React.StrictMode>,

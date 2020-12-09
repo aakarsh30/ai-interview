@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import './video.css';
 
 
 const videoType = 'video/webm';
@@ -58,26 +59,27 @@ export default class HomePage extends React.Component {
     const {recording, videos} = this.state;
 
     return (
-      <div className="camera">
+      <div className="maiin">
         <video
-          style={{width: 400}}
+          class="vid"
           ref={v => {
             this.video = v;
           }}>
           Video stream not available.
         </video>
         <div>
-          {!recording && <button onClick={e => this.startRecording(e)}>Record</button>}
-          {recording && <button onClick={e => this.stopRecording(e)}>Stop</button>}
+          {!recording && <button class="buton1"  onClick={e => this.startRecording(e)}><b>Record</b></button>}
+          {recording && <button class="buton2" onClick={e => this.stopRecording(e)}><b>Stop</b></button>}
         </div>
         <div>
-          <h5>Recorded videos:</h5>
+          <p class="recc">Recorded videos:</p>
           {videos.map((videoURL, i) => (
             <div key={`video_${i}`}>
-              <video style={{width: 200}} src={videoURL} autoPlay loop />
+              <video class="vid1" style={{width: 400}} src={videoURL} autoPlay loop />
               <div>
-                <button onClick={() => this.deleteVideo(videoURL)}>Delete</button>
-                <a href={videoURL}>Download</a>
+                <button class="buton4" onClick={() => this.deleteVideo(videoURL)}>Delete</button>
+                <a class="buton3" href={videoURL}>Download</a>
+                {!recording && <button class="buton5" onClick={()=> this.props.next()} >Next</button>}
               </div>
             </div>
           ))}
