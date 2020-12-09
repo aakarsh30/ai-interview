@@ -1,5 +1,4 @@
 import React from "react";
-
 import './video.css';
 
 
@@ -13,7 +12,7 @@ export default class HomePage extends React.Component {
       videos: [],
     };
   }
-
+    
   async componentDidMount() {
     const stream = await navigator.mediaDevices.getUserMedia({video: true, audio: true});
     this.video.srcObject = stream;
@@ -57,7 +56,8 @@ export default class HomePage extends React.Component {
 
   render() {
     const {recording, videos} = this.state;
-
+    const index=parseInt(this.props.match.params.id);
+    
     return (
       <div className="maiin">
         <video
@@ -79,7 +79,7 @@ export default class HomePage extends React.Component {
               <div>
                 <button class="buton4" onClick={() => this.deleteVideo(videoURL)}>Delete</button>
                 <a class="buton3" href={videoURL}>Download</a>
-                {!recording && <button class="buton5" onClick={()=> this.props.next()} >Next</button>}
+                {!recording && <button class="buton5" onClick={()=> this.props.history.push(`/${index+1}`)} >Next</button>}
               </div>
             </div>
           ))}

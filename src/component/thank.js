@@ -1,8 +1,8 @@
-import React,{useState} from 'react';
+import React from 'react';
 import '../App.css';
 import {Box,Heading} from 'grommet';
 import {Like} from 'grommet-icons';
-import {match} from 'react-router-dom';
+
 function Thank(props) {
    
 

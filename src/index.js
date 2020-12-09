@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter,Switch,Route} from 'react-router-dom'
+import Recorder from './component/videorecorder';
 import Thank from './component/thank';
 import {Grommet} from 'grommet';
 
@@ -27,12 +28,12 @@ ReactDOM.render(
     <Grommet theme={themes} full>
       <BrowserRouter>
         <Switch>
-          <Route path="/" exact>
-            <App />
-          </Route>
-          <Route path="/thank" >
-            <Thank />
-          </Route>
+          <Route path="/:qno?" exact component={App} />
+          <Route path="/rec/:id" component={Recorder} />
+          
+          <Route path="/thank/out" exact component={Thank} />
+            
+          
         </Switch>
       </BrowserRouter>
               
