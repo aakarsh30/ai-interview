@@ -9,7 +9,7 @@ const questions=[{qs:"What is your name?"},{qs:"What is your Father's name ?"},{
 
 function App() {
   const [index,setindex]=useState(0);
-  const [rec,setrec]=useState(false);
+  
   const [disp,setdisp]=useState(true);
   const [vid,setvid]=useState(false);
   const next=()=>{
