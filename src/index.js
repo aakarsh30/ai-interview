@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
-
+import {BrowserRouter,Switch,Route} from 'react-router-dom'
+import Thank from './component/thank';
 import {Grommet} from 'grommet';
 
 const themes ={
@@ -25,9 +25,17 @@ const themes ={
 ReactDOM.render(
   <React.StrictMode>
     <Grommet theme={themes} full>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/" exact>
             <App />
-      
-      
+          </Route>
+          <Route path="/thank" >
+            <Thank />
+          </Route>
+        </Switch>
+      </BrowserRouter>
+              
     </Grommet>
   </React.StrictMode>,
   document.getElementById('root')

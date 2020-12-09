@@ -2,21 +2,27 @@ import React,{useState} from 'react';
 import './App.css';
 import {Box,Text,Heading,Button} from 'grommet';
 import {Video} from 'grommet-icons';
-
+import {useHistory} from 'react-router-dom';
 
 import Recorder from './component/videorecorder';
 const questions=[{qs:"What is your name?"},{qs:"What is your Father's name ?"},{qs:"What is your qualifiacations?"},{qs:"What is your skills?"},{qs:"What is your strength?"}];
 
-function App() {
-  const [index,setindex]=useState(0);
+function App(props) {
   
+  const [index,setindex]=useState(0);
+  const history =useHistory();
   const [disp,setdisp]=useState(true);
   const [vid,setvid]=useState(false);
   const next=()=>{
     setvid(!vid);
     setdisp(!disp);
-    if(index!==(questions.length-1)){
-      setindex(index+1);
+    let ind;
+    ind=index+1;
+    if(ind<(questions.length)){
+      setindex(ind);
+    }
+    if(ind>=questions.length){
+      history.push("/thank");
     }
   }
 
