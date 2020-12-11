@@ -1,4 +1,5 @@
 import React from "react";
+
 import './video.css';
 
 
@@ -10,10 +11,34 @@ export default class HomePage extends React.Component {
     this.state = {
       recording: false,
       videos: [],
+      time: {}, 
+      seconds: 60
     };
+    this.timer = 0;
+    this.startRecording = this.startRecording.bind(this);
+    this.countDown = this.countDown.bind(this);
   }
-    
+
+  secondsToTime(secs){
+    let hours = Math.floor(secs / (60 * 60));
+
+    let divisor_for_minutes = secs % (60 * 60);
+    let minutes = Math.floor(divisor_for_minutes / 60);
+
+    let divisor_for_seconds = divisor_for_minutes % 60;
+    let seconds = Math.ceil(divisor_for_seconds);
+
+    let obj = {
+      "h": hours,
+      "m": minutes,
+      "s": seconds
+    };
+    return obj;
+  }
+
   async componentDidMount() {
+    let timeLeftVar = this.secondsToTime(this.state.seconds);
+    this.setState({ time: timeLeftVar });
     const stream = await navigator.mediaDevices.getUserMedia({video: true, audio: true});
     this.video.srcObject = stream;
     this.video.play();
@@ -30,16 +55,35 @@ export default class HomePage extends React.Component {
 
   startRecording(e) {
     e.preventDefault();
+    if (this.timer == 0 && this.state.seconds > 0) {
+      this.timer = setInterval(this.countDown, 1000);
+    }
+    let interval = setInterval(e => this.stopRecording(e), 60000);
+    this.setState({ interval });
     this.chunks = [];
     this.mediaRecorder.start(10);
-    this.setState({recording: true});
+    this.setState({ recording: true });
   }
 
   stopRecording(e) {
-    e.preventDefault();
     this.mediaRecorder.stop();
-    this.setState({recording: false});
+    this.setState({ recording: false });
     this.saveVideo();
+    this.state.seconds=60;
+  }
+
+  countDown() {
+    // Remove one second, set state so a re-render happens.
+    let seconds = this.state.seconds - 1;
+    this.setState({
+      time: this.secondsToTime(seconds),
+      seconds: seconds,
+    });
+    
+    // Check if we're at zero.
+    if (seconds == 0) { 
+      clearInterval(this.timer);
+    }
   }
 
   saveVideo() {
@@ -57,7 +101,7 @@ export default class HomePage extends React.Component {
   render() {
     const {recording, videos} = this.state;
     const index=parseInt(this.props.match.params.id);
-    
+
     return (
       <div className="maiin">
         <video
@@ -70,6 +114,7 @@ export default class HomePage extends React.Component {
         <div>
           {!recording && <button class="buton1"  onClick={e => this.startRecording(e)}><b>Record</b></button>}
           {recording && <button class="buton2" onClick={e => this.stopRecording(e)}><b>Stop</b></button>}
+          {recording && <div class="timer">m: {this.state.time.m} s: {this.state.time.s}</div>}
         </div>
         <div>
           <p class="recc">Recorded videos:</p>
