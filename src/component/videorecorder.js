@@ -58,7 +58,8 @@ export default class HomePage extends React.Component {
     if (this.timer == 0 && this.state.seconds > 0) {
       this.timer = setInterval(this.countDown, 1000);
     }
-    let interval = setInterval(e => this.stopRecording(e), 60000);
+    let interval = setInterval((e) => { if(this.mediaRecorder.state!=='inactive'){this.stopRecording(e)}}, 60000);
+    
     this.setState({ interval });
     this.chunks = [];
     this.mediaRecorder.start(10);
@@ -67,6 +68,7 @@ export default class HomePage extends React.Component {
 
   stopRecording(e) {
     this.mediaRecorder.stop();
+    
     this.setState({ recording: false });
     this.saveVideo();
     this.state.seconds=60;
@@ -101,6 +103,7 @@ export default class HomePage extends React.Component {
   render() {
     const {recording, videos} = this.state;
     const index=parseInt(this.props.match.params.id);
+    
 
     return (
       <div className="maiin">
