@@ -5,7 +5,7 @@ import {Video} from 'grommet-icons';
 import {useHistory} from 'react-router-dom';
 
 
-const questions=[{qs:"What is your name?"},{qs:"What is your Father's name ?"},{qs:"What is your qualifiacations?"},{qs:"What is your skills?"},{qs:"What is your strength?"}];
+const questions=[{qs:"What -is your name?"},{qs:"What is your Father's name ?"},{qs:"What is your qualifiacations?"},{qs:"What is your skills?"},{qs:"What is your strength?"}];
 
 function App(props) {
   const qno= parseInt(props.match.params.qno);
